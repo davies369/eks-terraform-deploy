@@ -13,16 +13,31 @@ jobs:
 
       - name: Setup AWS credentials
         run: |
-        
+          echo "AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}}" >> $GITHUB_ENV
+          echo "AWS_DEFAULT_REGION=${{secrets.AWS_REGION}}" >> $GITHUB_ENV
+          export AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}}
+          export AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}}
+          export AWS_DEFAULT_REGION=${{secrets.AWS_REGION}}
 
-
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform
+        with: 
+          terraform_version: 1.0.0
+     
       - name: Terraform init 
         run: |
           echo "Terraform init phase"
-          sh "terraform init"
+          terraform init
+     
       - name: Terraform plan
         run: |
           echo "Terraform plan phase"
-          sh "terraform plan"
+          terraform plan
+
+      - name: Terraform apply
+        run: |
+          echo "Terraform apply phase"
+          terraform apply --auto-approve
 
 
