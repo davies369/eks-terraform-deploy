@@ -1,6 +1,14 @@
 name: 01-Terraform-Deployent
 
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+    inputs:
+      deploy-choice:
+        type: choice
+        options:
+          - apply
+          - destroy
+        description: To choose between apply and destroy
 
 jobs:
   terraform-deploy:
@@ -35,9 +43,9 @@ jobs:
           echo "Terraform plan phase"
           terraform plan
 
-      - name: Terraform apply
+      - name: Terraform apply or destroy
         run: |
-          echo "Terraform apply phase"
-          terraform apply --auto-approve
+          echo "Terraform apply or destroy phase"
+          terraform ${{inputs.deploy-choice}} --auto-approve
 
 
