@@ -5,7 +5,17 @@ on: workflow_dispatch
 jobs:
   terraform-deploy:
     runs-on: ubuntu-latest
+    environment: aws
+
     steps: 
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup AWS credentials
+        run: |
+        
+
+
       - name: Terraform init 
         run: |
           echo "Terraform init phase"
