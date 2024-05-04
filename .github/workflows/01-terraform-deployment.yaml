@@ -50,7 +50,7 @@ jobs:
           echo "Terraform plan phase"
           terraform plan
 
-      - name: Terraform apply or destroy
+      - name: Terraform apply or destroy choice
         run: |
           echo "Terraform apply or destroy phase"
           terraform ${{inputs.deploy-choice}} --auto-approve
